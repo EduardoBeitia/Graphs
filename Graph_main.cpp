@@ -21,5 +21,9 @@ int main(){
     graph.addEdged("C","A");
 
     graph.printGraph();
+
+    Vertex v("B");
+
+    graph.DFS(v);
     return 0;
 }

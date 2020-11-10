@@ -10,12 +10,16 @@ using namespace std;
 
 class Graph{
 private:
+    int V=0;
     vector<Vertex> vertices;
+    void DFSUtil(Vertex v, bool visited[]);
 public:
     Graph(vector<string> vertices);
     void addEdged(string u, string v);
+    void addEdge(string u, string v);
     int getSize();
     void printGraph();
+    void DFS(Vertex v);
 };
 
 //Constructor
@@ -26,6 +30,7 @@ Graph::Graph(vector<string> vertices){
     for (it = vertices.begin(); it != vertices.end(); it++){
         Vertex newboy = Vertex(*it);
         this->vertices.push_back(newboy);
+        V++;
     }
     
 }
@@ -87,5 +92,40 @@ void Graph::printGraph(){
     }
 }
 
+void Graph::DFSUtil(Vertex v, bool visited[]){
+    // vector<int>::iterator pv;
+    // pv=find(this->vertices.begin(),this->vertices.end(), v);
+    vector<Vertex>::iterator it;
+    int count=0,num;
+    for(it = this->vertices.begin(); it != this->vertices.end(); it++){
+        if(auto current = this->vertices[it - this->vertices.begin()]==v){
+            
+            num=count;
+            count++;
+        }
+        count++;
+    }
+    visited[num]=true;
 
+    cout<< v.getName() << " ";
+
+    for (int i = 0; i < V; i++){
+        if(!visited[i]){
+            DFSUtil(vertices[i],visited);
+        }
+    }
+    
+    
+}
+
+void Graph::DFS(Vertex v){
+    bool *visited= new bool[V];
+
+    for (int i = 0; i < V; i++){
+        visited[i]=false;
+    }
+
+    DFSUtil(v,visited);
+    
+}
 #endif
