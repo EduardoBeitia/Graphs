@@ -12,18 +12,21 @@ using namespace std;
 
 int main(){
 
-    vector<string> V ={"A","B","C"};
+    vector<string> V ={"A","B","C","E"};
 
     Graph graph(V);
 
     graph.addEdged("A","B");
     graph.addEdged("B","C");
     graph.addEdged("C","A");
+    graph.addEdged("A","E");
 
     graph.printGraph();
 
-    Vertex v("B");
+    Vertex v("A");
 
+    cout<<"DFS"<<endl;
     graph.DFS(v);
+
     return 0;
 }

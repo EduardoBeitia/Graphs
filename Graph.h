@@ -10,9 +10,9 @@ using namespace std;
 
 class Graph{
 private:
-    int V=0;
+    int V_count=0;
     vector<Vertex> vertices;
-    void DFSUtil(Vertex v, bool visited[]);
+    vector<Vertex> DFSV;
 public:
     Graph(vector<string> vertices);
     void addEdged(string u, string v);
@@ -30,9 +30,9 @@ Graph::Graph(vector<string> vertices){
     for (it = vertices.begin(); it != vertices.end(); it++){
         Vertex newboy = Vertex(*it);
         this->vertices.push_back(newboy);
-        V++;
+        V_count++;
     }
-    
+
 }
 
 //Methods
@@ -92,40 +92,46 @@ void Graph::printGraph(){
     }
 }
 
-void Graph::DFSUtil(Vertex v, bool visited[]){
-    // vector<int>::iterator pv;
-    // pv=find(this->vertices.begin(),this->vertices.end(), v);
-    vector<Vertex>::iterator it;
-    int count=0,num;
-    for(it = this->vertices.begin(); it != this->vertices.end(); it++){
-        if(auto current = this->vertices[it - this->vertices.begin()]==v){
-            
-            num=count;
-            count++;
-        }
-        count++;
-    }
-    visited[num]=true;
 
-    cout<< v.getName() << " ";
-
-    for (int i = 0; i < V; i++){
-        if(!visited[i]){
-            DFSUtil(vertices[i],visited);
-        }
-    }
-    
-    
-}
 
 void Graph::DFS(Vertex v){
-    bool *visited= new bool[V];
 
-    for (int i = 0; i < V; i++){
-        visited[i]=false;
+    int count=0,check=0;
+    DFSV.push_back(v);
+
+
+    while (DFSV.size()<V_count){
+
+        bool condition = false;
+
+        for (int i = 0; i < DFSV.size(); i++){
+            if(vertices.at(count).travel()==DFSV.at(i).getName()){
+                condition=true;
+            }
+        }
+
+        if(!condition){
+            DFSV.push_back(vertices.at(count++).travel());
+            vertices.at(count).addCount();
+        }
+
+        check++;
+
+        if(check==5){
+            for (int i = 0; i < vertices.size(); ++i) {
+                vertices.at(i).addCount();
+            }
+            count=0;
+            check=0;
+        }
+
     }
 
-    DFSUtil(v,visited);
-    
+    for (int i = 0; i < DFSV.size(); i++){
+        cout<<DFSV.at(i).getName()<< "->" ;
+    }
+
+    cout<<endl;
+
 }
 #endif
