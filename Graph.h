@@ -92,8 +92,6 @@ void Graph::printGraph(){
     }
 }
 
-
-
 void Graph::DFS(Vertex v){
 
     int count=0,check=0;
@@ -117,7 +115,7 @@ void Graph::DFS(Vertex v){
 
         check++;
 
-        if(check==5){
+        if(check==vertices.size()+1){
             for (int i = 0; i < vertices.size(); ++i) {
                 vertices.at(i).addCount();
             }
