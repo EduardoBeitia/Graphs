@@ -13,10 +13,11 @@ private:
     int count=0;
 public:
     Vertex(string name="");
-    vector<Vertex*> connections;
+    vector<Vertex> connections;
     string getName(){return label;};
-    void addConnections(Vertex* who);
+    void addConnections(Vertex who);
     void getNeighborhood();
+    vector<Vertex> neighbord(){return connections;};
     Vertex travel();
     void addCount(){count++;};
     bool operator==(Vertex thatguy){return thatguy.label==this->label;};
@@ -31,20 +32,21 @@ Vertex::Vertex(string name){
 
 //Methods
 
-void Vertex::addConnections(Vertex* who){
+void Vertex::addConnections(Vertex who){
     this->connections.push_back(who);
 }
 
 void Vertex::getNeighborhood(){
     vector<Vertex*>::iterator it;
-    for (it = this->connections.begin(); it != this->connections.end(); it++){
-        cout<< (*it)->getName()<<" ";
+    for (int i = 0; i < connections.size(); i++){
+        cout<<connections[i].getName()<<" ";
     }
+    
 
 }
 
 Vertex Vertex::travel(){
-    return *connections[count];
+    return connections[count];
 }
 
 #endif
