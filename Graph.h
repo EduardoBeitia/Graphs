@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -159,10 +160,11 @@ void Graph::BFS(Vertex v){
 
     while(count<vertices.size()-1){
 
-        bool condition = false;
+        // bool condition = false;
         
         for (int i = 0; i < BFSV.size(); i++){
             for (int j = 0; j < BFSV[i].size(); j++){
+                bool condition = false;
                 for (int k = 0; k < visited.size(); k++){
                     if(BFSV[i][j].getName()==visited[k].getName()){
                         condition=true;
