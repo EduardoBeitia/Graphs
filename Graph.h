@@ -82,6 +82,7 @@ void Graph::addEdged(string u, string v){
     }
 }
 
+//Printing the graph with their conected vertices 
 void Graph::printGraph(){
     vector<Vertex>::iterator it;
 
@@ -93,86 +94,108 @@ void Graph::printGraph(){
     }
 }
 
+//Depth First Search algorithm
 void Graph::DFS(Vertex v){
 
+    //Creating needed variables and list
     Vertex current;
     vector<Vertex> visited;
     list<Vertex> stack;
     int count=0;
 
+    //search for the vertex we choose to start
     for (int i = 0; i < vertices.size(); i++){
         if(v==vertices.at(i)){
             current=vertices.at(i);
         }
     }
 
+    //adding the first vertex to visited vector
     visited.push_back(current);
     
+    //Creating stack of the current vertex neighbors
     stack=visited[0].Stack();
 
+    //Start looking to the stack element neighbors adding the to visited and deleting them
     visited.push_back(stack.front());
     stack.pop_front();
     count++;
 
+    //Stop when visited got all the vertices in the graph 
     while (visited.size()<vertices.size()){
 
+        //Find the next vertex to explore
         for (int i = 0; i < vertices.size(); i++){
             if(visited[count].getName()==vertices.at(i).getName()){
                 current=vertices.at(i);
             }
         }
 
+        //Creating stack of the current vertex neighbors
         stack=current.setStack(stack,visited);
 
+        //looking to the stack element neighbors adding the to visited and deleting them
         visited.push_back(stack.front());
         stack.pop_front();
         count++;
         
     }
     
+    //Printing the visited vector when we store the visited vertex
     for (int i = 0; i < visited.size(); i++){
         cout<<visited[i].getName()<<"->";
     }
     
 }
 
+//Breadth-First Search algorithm
 void Graph::BFS(Vertex v){
 
+    //Creating needed variables and list
     Vertex current;
     vector<Vertex> visited;
     list<Vertex> queue;
     int count=0;
 
+    //search for the vertex we choose to start
     for (int i = 0; i < vertices.size(); i++){
         if(v==vertices.at(i)){
             current=vertices.at(i);
         }
     }
 
+    //adding the first vertex to visited vector
     visited.push_back(current);
     
+    //Creating queue of the current vertex neighbors
     queue=visited[0].Queue();
 
+    //Start looking to the queue element neighbors adding the to visited and deleting them
     visited.push_back(queue.front());
     queue.pop_front();
     count++;
 
+    //Stop when visited got all the vertices in the graph
     while (visited.size()<vertices.size()){
 
+        //Find the next vertex to visit
         for (int i = 0; i < vertices.size(); i++){
             if(visited[count].getName()==vertices.at(i).getName()){
                 current=vertices.at(i);
             }
         }
 
+        //Creating queue of the current vertex neighbors
         queue=current.setQueue(queue,visited);
 
+        //looking to the queue element neighbors adding the to visited and deleting them
         visited.push_back(queue.front());
         queue.pop_front();
         count++;
         
     }
     
+    //Printing the visited vector when we store the visited vertex
     for (int i = 0; i < visited.size(); i++){
         cout<<visited[i].getName()<<"->";
     }
