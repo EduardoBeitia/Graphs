@@ -27,9 +27,10 @@ int main(){
 
     cout<<"DFS"<<endl;
     graph.DFS(v);
+    cout<<endl;
 
     cout<<"BFS"<<endl;
     graph.BFS(v);
-    
+
     return 0;
 }

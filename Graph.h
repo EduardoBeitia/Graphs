@@ -95,48 +95,46 @@ void Graph::printGraph(){
 
 void Graph::DFS(Vertex v){
 
-    int count=0,check=0;
+    Vertex current;
+    vector<Vertex> visited;
+    vector<Vertex> temporary;
+    list<Vertex> stack;
+    int count=0;
+
     for (int i = 0; i < vertices.size(); i++){
-        if (v==vertices.at(i)){
-            count=i;
-        }        
+        if(v==vertices.at(i)){
+            current=vertices.at(i);
+        }
+    }
+
+    visited.push_back(current);
+    
+    stack=visited[0].Stack();
+
+    visited.push_back(stack.front());
+    stack.pop_front();
+    count++;
+
+    while (visited.size()<vertices.size()){
+
+        for (int i = 0; i < vertices.size(); i++){
+            if(visited[count].getName()==vertices.at(i).getName()){
+                current=vertices.at(i);
+            }
+        }
+
+        stack=current.setStack(stack,visited);
+
+        visited.push_back(stack.front());
+        stack.pop_front();
+        count++;
+        
     }
     
-    DFSV.push_back(v);
-
-    while (DFSV.size()<V_count){
-
-        bool condition = false;
-
-        for (int i = 0; i < DFSV.size(); i++){
-            if(vertices.at(count).travel()==DFSV.at(i).getName()){
-                condition=true;
-            }
-        }
-
-        if(!condition){
-            DFSV.push_back(vertices.at(count++).travel());
-            vertices.at(count).addCount();
-        }
-
-        check++;
-
-        if(check==vertices.size()+1){
-            for (int i = 0; i < vertices.size(); ++i) {
-                vertices.at(i).addCount();
-            }
-            count=0;
-            check=0;
-        }
-
+    for (int i = 0; i < visited.size(); i++){
+        cout<<visited[i].getName()<<"->";
     }
-
-    for (int i = 0; i < DFSV.size(); i++){
-        cout<<DFSV.at(i).getName()<< "->" ;
-    }
-
-    cout<<endl;
-
+    
 }
 
 void Graph::BFS(Vertex v){
