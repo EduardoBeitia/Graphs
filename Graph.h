@@ -97,7 +97,6 @@ void Graph::DFS(Vertex v){
 
     Vertex current;
     vector<Vertex> visited;
-    vector<Vertex> temporary;
     list<Vertex> stack;
     int count=0;
 
@@ -139,44 +138,41 @@ void Graph::DFS(Vertex v){
 
 void Graph::BFS(Vertex v){
 
-    int count =0;
-    vector<vector<Vertex>> BFSV;
+    Vertex current;
     vector<Vertex> visited;
+    list<Vertex> queue;
+    int count=0;
 
     for (int i = 0; i < vertices.size(); i++){
-            BFSV.push_back(vertices.at(i).neighbord());
+        if(v==vertices.at(i)){
+            current=vertices.at(i);
+        }
     }
 
-    // for (int i = 0; i < BFSV.size(); i++){
-    //     for (int j = 0; j < BFSV[i].size(); j++){
-    //         cout<<BFSV[i][j].getName()<<" ";
-    //     }
-    //     cout<<endl;
-    // }
+    visited.push_back(current);
     
-    visited.push_back(v);
+    queue=visited[0].Queue();
 
-    while(count<vertices.size()-1){
+    visited.push_back(queue.front());
+    queue.pop_front();
+    count++;
 
-        // bool condition = false;
-        
-        for (int i = 0; i < BFSV.size(); i++){
-            for (int j = 0; j < BFSV[i].size(); j++){
-                bool condition = false;
-                for (int k = 0; k < visited.size(); k++){
-                    if(BFSV[i][j].getName()==visited[k].getName()){
-                        condition=true;
-                    }
-                }
-            if (!condition){
-                    count++;
-                    visited.push_back(BFSV[i][j]);
-                }                
+    while (visited.size()<vertices.size()){
+
+        for (int i = 0; i < vertices.size(); i++){
+            if(visited[count].getName()==vertices.at(i).getName()){
+                current=vertices.at(i);
             }
         }
+
+        queue=current.setQueue(queue,visited);
+
+        visited.push_back(queue.front());
+        queue.pop_front();
+        count++;
         
     }
-
+    
     for (int i = 0; i < visited.size(); i++){
         cout<<visited[i].getName()<<"->";
     }

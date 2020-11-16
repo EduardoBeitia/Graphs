@@ -19,13 +19,13 @@ public:
     string getName(){return label;};
     void addConnections(Vertex who);
     void getNeighborhood();
-    vector<Vertex> neighbord(){return connections;};
-    Vertex travel();
     
     list<Vertex> setStack(list<Vertex> adj, vector<Vertex> visited);
     list<Vertex> Stack();
 
-    void addCount(){count++;};
+    list<Vertex> setQueue(list<Vertex> adj, vector<Vertex> visited);
+    list<Vertex> Queue();
+
     bool operator==(Vertex thatguy){return thatguy.label==this->label;};
 };
 
@@ -49,13 +49,7 @@ void Vertex::getNeighborhood(){
         cout<<connections[i].getName()<<" ";
     }
     
-
 }
-
-Vertex Vertex::travel(){
-    return connections[count];
-}
-
 
 list<Vertex> Vertex::setStack(list<Vertex> adj,vector<Vertex> visited){
     
@@ -93,6 +87,47 @@ list<Vertex> Vertex::Stack(){
 
     for (int i = 0; i < connections.size(); i++){
         adj.push_front(connections[i]);
+    }
+
+    return adj;
+}
+
+list<Vertex> Vertex::setQueue(list<Vertex> adj,vector<Vertex> visited){
+    
+    for (int j = 0; j < connections.size(); j++){
+        bool condition1=false;
+        bool condition2=false;
+        if(adj.size()!=0){
+            for (auto i : adj){
+            if(connections[j].getName()==i.getName()){
+                condition1=true;
+                
+                }
+            }
+        }else{
+            condition1=false;
+        }
+        
+        for (auto i : visited){
+            if(connections[j].getName()==i.getName()){
+                condition2=true;
+            }
+        }
+        if((!condition1)&&(!condition2)){
+            
+            adj.push_back(connections[j]);
+        }
+    }
+
+    return adj;
+}
+
+list<Vertex> Vertex::Queue(){
+    
+    list<Vertex> adj;
+
+    for (int i = 0; i < connections.size(); i++){
+        adj.push_back(connections[i]);
     }
 
     return adj;
